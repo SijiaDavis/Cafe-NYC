@@ -9,6 +9,15 @@ body {
   //font-family: 'Emilys Candy', cursive;
 }
 
+.clear {
+  clear: both;
+}
+
+.pag {
+  margin: auto;
+  text-align:center;
+}
+
 .navbar.navbar-inverse {
   background: url('/assets/wood_1.png');
   border-radius:0;
