@@ -1,0 +1,12 @@
+<div class="booyah-box  col-xs-10 col-xs-offset-1">
+  <h1>Editing <%= @place.name %></h1>
+    <%= simple_form_for @place do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :address %>
+    <br />
+    <%= f.submit 'Update', class: 'btn btn-primary'%>
+    <%= link_to 'Cancel', place_path(@place), class:"btn btn-warning pull-right" %>
+  <% end %>
+  
+</div>
