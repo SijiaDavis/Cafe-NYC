@@ -1,8 +1,9 @@
 <% @places.each do |place| %>
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h1>
-    <%= place.name %>
+    <%= link_to place.name, place_path(place) %>
   </h1>
+  <br />
   <em>
     <%= place.address %>
   </em>
