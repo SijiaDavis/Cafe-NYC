@@ -8,7 +8,7 @@
     <div class="pull-right">
       <% if current_user && current_user == @place.user %>
         <%= link_to 'Edit', edit_place_path(@place), class:"btn btn-primary" %>
-      <% end %>  
         <%= link_to 'Delete', place_path(@place), method: :delete, data: {confirm:'Are you sure you want to delete this?'}, class:"btn btn-danger" %>
+      <% end %>  
     </div>
 </div>
