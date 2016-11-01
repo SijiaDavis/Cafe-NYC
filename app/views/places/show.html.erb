@@ -1,41 +1,63 @@
 <div class="booyah-box col-xs-10 col-xs-offset-1">
-    <h1><%= @place.name %></h1>
-    <em>
-        <%= @place.address %>
-    <em>
-    <br/><br/>
-    <p><%= @place.description %></p>
-    <% if @place.latitude.present? && @place.longitude.present? %>
-    <script>
+  <h1><%= @place.name %></h1>
+  <em>
+      <%= @place.address %>
+  <em>
+  <br/><br/>
+  <p><%= @place.description %></p>
+  <% if @place.latitude.present? && @place.longitude.present? %>
+  <script>
 
-      function initMap() {
-        var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
+    function initMap() {
+      var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: myLatLng
-        });
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: myLatLng
+      });
 
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3C1i_MwYN98Tldxdq9pjxG9l6XJTl90&callback=initMap">
-    </script>
-    
-    <div id="map"></div>
-    <% end %>
-    
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+      });
+    }
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3C1i_MwYN98Tldxdq9pjxG9l6XJTl90&callback=initMap">
+  </script>
+  
+  <div id="map"></div>
+  <% end %>
+  
+  <br />
+  
+  <div class="pull-right">
+    <% if current_user && current_user == @place.user %>
+      <%= link_to 'Edit', edit_place_path(@place), class:"btn btn-primary" %>
+      <%= link_to 'Delete', place_path(@place), method: :delete, data: {confirm:'Are you sure you want to delete this?'}, class:"btn btn-danger" %>
+    <% end %>  
+  </div>
+
+  <div class="clear"></div>
+  <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+    <%= f.input :message %>
+    <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
     <br />
-    
-    <div class="pull-right">
-      <% if current_user && current_user == @place.user %>
-        <%= link_to 'Edit', edit_place_path(@place), class:"btn btn-primary" %>
-        <%= link_to 'Delete', place_path(@place), method: :delete, data: {confirm:'Are you sure you want to delete this?'}, class:"btn btn-danger" %>
-      <% end %>  
+    <%= f.submit "Add a comment", class: "btn btn-primary" %>
+  <% end %>
+  <br />
+  <h1>Comments</h1>
+
+  <% @place.comments.each do |comment| %>
+    <div>
+      <blockquote>
+        <% if comment.humanized_rating.present? %>
+          <strong><%= comment.humanized_rating %></strong> - 
+        <% end %>
+        <%= comment.message %>
+        <small><%= comment.user.email %></small>
+      </blockquote>
     </div>
+  <% end %>
 </div>
