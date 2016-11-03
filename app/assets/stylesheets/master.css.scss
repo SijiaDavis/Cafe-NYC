@@ -17,6 +17,15 @@ body {
   text-align: center;
 }
 
+.caption {
+  text-align: center;
+}
+
+img {
+  max-height: 242px;
+  width: 200px;
+}
+
 .navbar.navbar-inverse {
   background: url('/assets/wood_1.png');
   border-radius:0;

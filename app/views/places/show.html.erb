@@ -89,25 +89,40 @@
 <br />
 
 <div class="col-xs-10 col-xs-offset-1">
-<h1 class="pull-left">Comments</h1>
-<!-- Button trigger modal -->
-&nbsp;
-<button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myCommentModal">
-Add a comment
-</button>
+<h1 class="pull-left">Photos</h1>
 
 <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myPhotoModal">
 Add a photo
 </button>
-</div>
+
 <div class="clear"></div>
+<br />
 
 <% @place.photos.each do |photo| %>
   <div class="col-xs-12 col-sm-6">
-    <%= image_tag photo.picture %>
-    <%= photo.caption %>
+    <div class="thumbnail">
+      <%= image_tag photo.picture%>
+      <div class="caption">
+        <%= photo.caption %>
+      </div>
+    </div>
   </div>
 <% end %>
+
+</div>
+<div class="clear"></div>
+<br />
+<br />
+
+<div class="col-xs-10 col-xs-offset-1">
+<h1 class="pull-left">Comments</h1>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myCommentModal">
+Add a comment
+</button>
+
+<div class="clear"></div>
 
   <% @place.comments.each do |comment| %>
     <div class="col-xs-12 col-sm-6">
