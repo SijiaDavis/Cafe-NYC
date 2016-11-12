@@ -2,7 +2,9 @@
   <h1>Enter your Place Details</h1>
     <%= simple_form_for @place do |f| %>
     <%= f.input :name %>
+    <br />
     <%= f.input :description %>
+    <br />
     <%= f.input :address %>
     <br />
     <%= f.submit 'Create', class: 'btn btn-primary'%>

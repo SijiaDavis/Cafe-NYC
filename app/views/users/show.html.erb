@@ -17,6 +17,9 @@
 <br /><br />
 <h1 class="text-center profile-header">My Comments</h1>
 <div class="booyah-box col-xs-10 col-xs-offset-1">
+  <% if @user.comments.empty? %>
+      <h2> You don't have any comment yet.</h2>
+  <% end %>
 <% @user.comments.each do |comment| %>
   <div class="col-xs-12 col-sm-6">
     <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
@@ -35,6 +38,11 @@
 
 <br /><br />
 <h2 class="text-center profile-header">My Places</h2>
+<% if @user.places.empty? %>
+  <div class="booyah-box col-xs-10 col-xs-offset-1">
+    <h2> You don't have any place yet. Creat a new one <%= link_to "here", new_place_path, id: "create-new-link" %></h2>
+  </div>
+<% end %>
 <% @user.places.each do |place| %>
 <div class="booyah-box col-xs-10 col-xs-offset-1">
 <h1><%= link_to place.name, place_path(place) %></h1>
