@@ -1,0 +1,17 @@
+<div class="booyah-box">
+
+    <div class="col-xs-4">
+      <%= image_tag 'userAvatar.png' %>
+    </div>
+    
+    <div class="col-xs-8">
+      <h1><%= @user.email %></h1>
+      <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
+      <h4><%= @user.comments.count %> total comments</h4>
+      <h4><%= @user.comments.where(rating: '5_stars').count %> total five start comments</h4>
+    </div>
+   <div class="clear"></div>
+</div>
+
+
+  
