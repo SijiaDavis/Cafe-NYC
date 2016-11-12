@@ -40,7 +40,7 @@
 <h2 class="text-center profile-header">My Places</h2>
 <% if @user.places.empty? %>
   <div class="booyah-box col-xs-10 col-xs-offset-1">
-    <h2> You don't have any place yet. Creat a new one <%= link_to "here", new_place_path, id: "create-new-link" %></h2>
+    <h2> You don't have any place yet. Create a new one <%= link_to "here", new_place_path, id: "create-new-link" %></h2>
   </div>
 <% end %>
 <% @user.places.each do |place| %>
