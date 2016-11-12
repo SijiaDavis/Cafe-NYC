@@ -19,7 +19,7 @@
 <div class="booyah-box col-xs-10 col-xs-offset-1">
 <% @user.comments.each do |comment| %>
   <div class="col-xs-12 col-sm-6">
-    <h2 class="text-center"><%= link_to 'hh', place_path(comment.place) %></h2>
+    <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
     <blockquote>
       <% if comment.humanized_rating.present? %>
       <em><%= comment.humanized_rating %></em>
