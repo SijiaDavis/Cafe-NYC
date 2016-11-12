@@ -1,16 +1,26 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Emilys+Candy|Love+Ya+Like+A+Sister');
-@import url('https://fonts.googleapis.com/css?family=Kumar+One+Outline|Special+Elite');
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Homemade+Apple|Satisfy');
+@import url('https://fonts.googleapis.com/css?family=Clicker+Script');
 
 body {
-  background: url('/assets/ravenna.png');
-  font-family: 'Love Ya Like A Sister', cursive;
-  //font-family: 'Emilys Candy', cursive;
+  background: url('/assets/wood_1.png');
+  font-family: 'Satisfy', cursive;
+  color: #635957;
+}
+
+.profile-header {
+  color: white;
+}
+
+h1, h2 {
+  font-family: 'Homemade Apple', cursive;  
 }
 
 .carousel-caption {
-  font-family: 'Emilys Candy', cursive;
+  font-family: 'Clicker Script', cursive;
   font-size: 40px;
   text-shadow: rgba(0,0,0,0.95);
   background-color: rgba(0,0,0,0.5);
@@ -35,37 +45,36 @@ body {
 .caption {
   text-align: center;
 }
-
-// img {
-//   max-height: 242px;
-//   width: 200px;
-// }
-
-.navbar.navbar-inverse {
-  background: url('/assets/wood_1.png');
+ 
+.alert-info {
+  background-color: transparent;
+  color: white;
+}
+.navbar.navbar-default {
+  background: url('/assets/coffee.jpg');
+  border: none;
   border-radius:0;
-  -moz-box-shadow: 1px 2px 3px 0 black,1px 4px 4px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 2px 3px 0 black,1px 4px 4px 0 #d0d0d0;
-  box-shadow: 1px 2px 3px 0 black,1px 4px 4px 0 #d0d0d0;
-  margin-bottom: 0;
+  font-family: 'Homemade Apple', cursive;  
 }
 
-.navbar-inverse .navbar-brand {
-  color: pink;
-  font-family: 'Special Elite', cursive;
-  //font-family: 'Kumar One Outline', cursive;
+.navbar-default .navbar-brand {
+  color: #635957;
+  background: url('/assets/coffee_ring.png');
+  background-size: auto;
+}
+
+.navbar-default .navbar-nav > li > a  {
+  color: #635957;
+  background: url('/assets/coffee_ring.png');
+  background-size: contain;
 }
 
 .booyah-box {
-  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  background: url('/assets/paper-background.png');
+  background-size: cover;
   margin-top: 10px;
   margin-bottom: 15px;
-  padding: 20px;
+  padding: 40px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -103,7 +112,30 @@ blockquote p {
   display: inline;
 }
 
+p {
+  font-size: 20px;
+}
+
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
   max-height: 550px;
   width: 100%;
+}
+
+a.my-link:link, a.my-link:hover, a.my-link:visited {
+  text-decoration: none;
+  color: #635957;
+}
+
+a:link, a:hover, a:visited {
+  text-decoration: none;
+  color: #635957;
+}
+
+.profile-pic {
+  height: 150px;
+  width: 150px;
+}
+
+a.btn:link, a.btn:hover, a.btn:visited {
+  color: white;
 }

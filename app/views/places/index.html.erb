@@ -5,7 +5,6 @@
     <li data-target="#carousel-example-generic" data-slide-to="1"></li>
     <li data-target="#carousel-example-generic" data-slide-to="2"></li>
     <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
   </ol>
 
   <!-- Wrapper for slides -->
@@ -13,31 +12,25 @@
     <div class="item active">
       <%= image_tag 'cafe1.jpg', class: 'img-responsive' %>
       <div class="carousel-caption">
-        best cafe in town
-      </div>
-    </div>
-    <div class="item">
-      <%= image_tag 'cafe2.jpg', class: 'img-responsive' %>
-      <div class="carousel-caption">
-        best
+        Good communication is as stimulating as black coffee, and just as hard. 
       </div>
     </div>
     <div class="item">
       <%= image_tag 'cafe3.jpeg', class: 'img-responsive' %>
       <div class="carousel-caption">
-        best
+        Once you wake up and smell the coffee, it's hard to go back to sleep. 
       </div>
     </div>
     <div class="item">
-      <%= image_tag 'cafe4.jpg', class: 'img-responsive' %>
+      <%= image_tag 'cafe4.jpeg', class: 'img-responsive' %>
       <div class="carousel-caption">
-        best
+        Coffee is a language in itself. 
       </div>
     </div>
     <div class="item">
       <%= image_tag 'cafe5.jpeg', class: 'img-responsive' %>
       <div class="carousel-caption">
-        best
+        Coffee gives me the illusion that I might be awake. 
       </div>
     </div>
   </div>
@@ -56,7 +49,7 @@
 <% @places.each do |place| %>
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h1>
-    <%= link_to place.name, place_path(place) %>
+    <%= link_to place.name, place_path(place), class: 'my-link' %>
   </h1>
   <br />
   <em>
@@ -67,10 +60,9 @@
   <p>
     <%= place.description %>
   </p>
-  <br />
   
   <% if place.user.present? %>
-    <small><%= place.user.email %></small>
+    <small>- <%= place.user.email %></small>
   <% end %>
   <div class="clear"></div>
   <% if place.comments.present? %>

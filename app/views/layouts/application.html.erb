@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>Nomster</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <meta name=“viewport” content=“width=device-width”>
 </head>
 <body>
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -26,7 +26,7 @@
         <ul class="nav navbar-nav">
           <li>  
             <%= link_to new_place_path do %>
-              <i class="glyphicon glyphicon-plus-sign"></i>&nbsp;New Place
+              <i class="fa fa-coffee" aria-hidden="true"></i>&nbsp;New Place
             <% end %>
           </li>
         </ul>
@@ -35,20 +35,24 @@
             <li><%= link_to 'My profile', user_path(current_user) %></li>
             <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to 'Please sign in', new_user_session_path %></li>
-            <li><%= link_to 'Or sign up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign in', new_user_session_path %></li>
+            <li><%= link_to 'Sign up', new_user_registration_path %></li>
           <% end %> 
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
   
+  <br />
+  <br />
+  <br />
+
   <div class="container">
     <% if notice.present? %>
-      <p class="notice alert-info"><%= notice %></p>
+      <div class="notice alert-info"><%= notice %></div>
     <% end %>
     <% if alert.present? %>
-      <p class="alert alert-danger"><%= alert %></p>
+      <div class="alert alert-danger"><%= alert %></div>
     <% end %>
     <%= yield %>
   </div>
