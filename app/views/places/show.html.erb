@@ -2,7 +2,7 @@
   <h1><%= @place.name %></h1>
   <em>
       <%= @place.address %>
-  <em>
+  </em>
   <br/><br/>
   <p><%= @place.description %></p>
   <% if @place.latitude.present? && @place.longitude.present? %>
@@ -115,24 +115,25 @@ Add a photo
 <br />
 
 <div class="col-xs-10 col-xs-offset-1">
-<h1 class="pull-left">Comments</h1>
+  <h1 class="pull-left">Comments</h1>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myCommentModal">
-Add a comment
-</button>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myCommentModal">
+  Add a comment
+  </button>
 
-<div class="clear"></div>
+  <div class="clear"></div>
 
-  <% @place.comments.each do |comment| %>
-    <div class="col-xs-12 col-sm-6">
-      <blockquote>
-        <% if comment.humanized_rating.present? %>
-          <strong><%= comment.humanized_rating %></strong> - 
-        <% end %>
-        <%= comment.message %>
-        <small><%= comment.user.email %></small>
-      </blockquote>
-    </div>
-  <% end %>
+    <% @place.comments.each do |comment| %>
+      <div class="col-xs-12 col-sm-6">
+        <blockquote>
+          <% if comment.humanized_rating.present? %>
+            <strong><%= comment.humanized_rating %></strong> - 
+          <% end %>
+          <%= comment.message %>
+          <small><%= comment.user.email %></small>
+        </blockquote>
+      </div>
+    <% end %>
+</div>
 </div>
