@@ -55,10 +55,24 @@ class PlacesController < ApplicationController
     redirect_to root_path
   end
   
+  def check_unique
+    if current_user.places.where(name: params[:name]).present? # not working. weird/depressing
+      msg = {'is_uniq_for_user' => 'false'}
+    else
+      msg = {'is_uniq_for_user' => 'true'}
+    end
+    
+    render :json => msg
+  end
+  
   private
   
   def place_params
     params.require(:place).permit(:name, :description, :address)
+  end
+  
+  def check_params
+    params.permit(:name, :description, :address)
   end
   
 end
