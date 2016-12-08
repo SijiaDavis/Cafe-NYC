@@ -4,7 +4,7 @@ RSpec.describe PlacesController, type: :controller do
     describe "POST check_unique" do
         login_user
         
-        it "has a 200 status code" do
+        it "has a 200 status code when current user has never created this place before" do
           params = {
             place: {
               name: 'Cafe Lingo',
@@ -16,7 +16,7 @@ RSpec.describe PlacesController, type: :controller do
           expect(response).to have_http_status(:ok)
         end
         
-        it "has a conflict status code" do
+        it "has a 409 status code when current user has created this place before" do
           place = FactoryGirl.create(:place, user_id: @current_user)
           params = {
             place: {
@@ -29,7 +29,7 @@ RSpec.describe PlacesController, type: :controller do
           expect(response).to have_http_status(:conflict)
         end
         
-        login_user
+        login_user # another user logs in
         
         it "has a 200 status code for a different user" do
           params = {
