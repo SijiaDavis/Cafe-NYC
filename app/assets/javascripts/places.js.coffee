@@ -5,10 +5,9 @@
 # Attach event handler to address input field
 jQuery ($) ->
   $(document).ready ->
-    $("input#place_address").keydown((evt) ->
+    $("input#place_address").keydown((evt) ->    
       # if tab key is pressed
       if evt.which == 9
-        console.log "keypressed"
         # get form inputs
         placeName = $("#new_place #place_name").val()
         placeDesc = $("#new_place #place_description").val()
