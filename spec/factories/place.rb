@@ -3,6 +3,6 @@ FactoryGirl.define do
     name 'Cafe Lingo'
     description "Where the cool kids are."
     address "68 Jay Street, Suite 720, Brooklyn 11201"
-    user_id
+    association :user_id
   end
 end

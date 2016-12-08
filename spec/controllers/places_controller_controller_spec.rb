@@ -17,7 +17,7 @@ RSpec.describe PlacesController, type: :controller do
         end
         
         it "has a conflict status code" do
-          place = FactoryGirl.create(:place)
+          place = FactoryGirl.create(:place, user_id: @current_user)
           params = {
             place: {
               name: 'Cafe Lingo',
