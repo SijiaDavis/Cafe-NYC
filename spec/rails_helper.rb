@@ -6,23 +6,23 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
-require_relative 'support/controller_macros.rb'
-require_relative 'support/database_cleaner.rb'
-require_relative 'support/share_db_connection.rb'
 # note: require 'devise' after require 'rspec/rails'
 require 'devise'
 require "capybara/poltergeist"
 
-# Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, :type => :controller
-  config.include Devise::Test::ControllerHelpers, :type => :view
   config.extend ControllerMacros, :type => :controller
-  config.extend ControllerMacros, :type => :view
+  config.include FeatureHelpers, :type => :feature
   config.include Warden::Test::Helpers
+  config.after :each do
+    Warden.test_reset!
+  end
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 end
 
 # Add additional requires below this line. Rails is not loaded until this point!

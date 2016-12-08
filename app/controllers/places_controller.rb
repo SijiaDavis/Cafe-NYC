@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :check_unique]
   
   def index 
     @places = Place.order(:id).page(params[:page])
@@ -10,6 +10,7 @@ class PlacesController < ApplicationController
   end
   
   def create 
+    puts "hello I am #{current_user} in create"
     @place = current_user.places.create(place_params)
     if @place.valid?
       redirect_to root_path
@@ -56,6 +57,7 @@ class PlacesController < ApplicationController
   end
   
   def check_unique
+    puts "hello I am #{current_user}"
     head current_user.places.where(place_params).present? ? :conflict : :ok
   end
   
