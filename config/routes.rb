@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :places do
     resources :comments, only: :create
     resources :photos, only: :create
-    get :check_unique, on: :collection 
+    post :check_unique, on: :collection 
   end
   resources :users, only: :show
   # The priority is based upon order of creation: first created -> highest priority.

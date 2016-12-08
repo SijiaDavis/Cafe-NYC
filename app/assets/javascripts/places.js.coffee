@@ -1,12 +1,6 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-
-# Check if place is already created by current user
-@checkInput = () ->
-  element.style.backgroundColor = backgroundColor
-  if textColor?
-    element.style.color = textColor
     
 # Attach event handler to address input field
 jQuery ($) ->
@@ -14,15 +8,27 @@ jQuery ($) ->
     $("input#place_address").keydown((evt) ->
       # if tab key is pressed
       if evt.which == 9
+        # get form inputs
+        placeName = $("#new_place #place_name").val()
+        placeDesc = $("#new_place #place_description").val()
+        placeAddr = $("#new_place #place_address").val()
+        
+        inputs = {
+          place: {
+            name: placeName,
+            description: placeDesc,
+            address: placeAddr
+          }
+        }
+          
         $.ajax
           url: "/places/check_unique"
           datatype: "json"
           contenType: "application/json; charset=utf-8"
-          type: "GET"
-          success: (data) ->             
-            alert "Uh Oh" if data.is_uniq_for_user == "false"
+          data: inputs
+          type: "POST"         
           error: (data) -> 
-            alert "Something went wrong" 
+            $(".container").prepend('<div class="alert alert-danger">You already wrote about this place.</div>') if data.status == 409
     )
      
      
