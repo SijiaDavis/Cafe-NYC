@@ -1,0 +1,20 @@
+-> CoffeeScript is indeed quite interesting. Wondering if the people who created it just loved ruby so much that they had to rubify javascript as well. ok, 10% of the reason is to not polluting the global namespacing, 90% of the reason is to be able to write ruby-alike javascript syntax.
+
+-> not sure if I can use the controller_macros.rb for Capybara testing as well. adding :type => :feature for the config include Devise... and config extend ControllerMacros... in rails_helper seems to break everything. include Warden::Test::Helpers does the trick for features testing, but apparently it doesn't play well with controller tests. http://stackoverflow.com/questions/13420923/configuring-warden-for-use-in-rspec-controller-specs/17050993#17050993
+
+-> bundle clean --force a fix for unresolved specs during Gem::Specificaiton.reset:..
+
+-> creating new feature: ~0.5hr
+   writing tests for the new feature: 🤔
+   super looking forward to writing tests faster than writing features
+   
+-> Ohhh headless driver
+
+-> For feature testing maybe I will have to simulate actual physical login before testing the new form view? But there should be two ways to get authentication done in Capybara: 1. Simulating log in through a Devise form. 2. what i've been trying to do, similar to Devise' sign_in.
+
+
+
+   
+
+   
+

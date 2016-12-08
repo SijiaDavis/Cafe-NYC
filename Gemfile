@@ -42,9 +42,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'rack_session_access'
+  gem 'selenium-webdriver', '2.53.4'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
-
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
