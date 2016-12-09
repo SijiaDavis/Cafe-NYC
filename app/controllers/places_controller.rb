@@ -19,23 +19,21 @@ class PlacesController < ApplicationController
   end
   
   def show
-    @place = Place.find(params[:id])
+    @place = Place.find_by_id(params[:id])
+    return render_not_found if @place.blank?
     @comment = Comment.new
     @photo = Photo.new
   end
   
   def edit
-    @place = Place.find(params[:id])
-    if @place.user != current_user
-      return render text: 'Not Allowed', status: :forbidden
-    end
+    @place = Place.find_by_id(params[:id])
+    return render_not_found if @place.blank?  
+    return render_not_allowed if @place.user != current_user
   end
   
   def update
-    @place = Place.find(params[:id])
-    if @place.user != current_user
-      return render text: 'Not Allowed', status: :forbidden
-    end
+    @place = Place.find_by_id(params[:id])
+    return render_not_allowed if @place.user != current_user
     
     @place.update_attributes(place_params)
     if @place.valid?
@@ -47,10 +45,7 @@ class PlacesController < ApplicationController
   
   def destroy
     @place = Place.find(params[:id])
-    if @place.user != current_user
-      return render text: 'Not Allowed', status: :forbidden
-    end
-    
+    return render_not_allowed if @place.user != current_user
     @place.destroy
     redirect_to root_path
   end
@@ -64,4 +59,12 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(:name, :description, :address)
   end  
+  
+  def render_not_found
+    render text: 'Sorry, the cafe you are looking for is not found...', status: :not_found
+  end
+  
+  def render_not_allowed
+    render text: 'Not Allowed', status: :forbidden
+  end
 end

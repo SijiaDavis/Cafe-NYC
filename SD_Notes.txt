@@ -14,7 +14,11 @@
 
 -> But wait, if current_user doesn't hold any value, how the hell did they even get to this new place form? NEED TO TEST THAT AS WELL!! - solved
 
--> 
+-> RED GREEN REFACTOR
+
+-> refactor code from edit, show, and update
+
+
 
 
 
