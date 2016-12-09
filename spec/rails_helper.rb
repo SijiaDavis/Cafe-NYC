@@ -15,9 +15,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
+  config.include LoginHelper, :type => :controller
   config.include FeatureHelpers, :type => :feature
   config.include Warden::Test::Helpers
   config.after :each do
