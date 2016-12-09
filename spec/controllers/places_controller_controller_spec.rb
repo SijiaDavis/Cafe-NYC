@@ -47,6 +47,16 @@ RSpec.describe PlacesController, type: :controller do
       expect(place.user.id).to eq(@current_user)
     end
     
+    it "should return a 409 error if the place already exist in db" do
+      login_user
+      post :create, params
+      place_cnt = Place.count
+      post :create, params  
+      expect(response).to have_http_status(:conflict)
+      expect(response).to render_template(:new)
+      expect(place_cnt).to eq Place.count  # count should not change
+    end
+    
     it "should show validation errors when new place form is not filled out properly" do
       login_user
       
@@ -133,6 +143,14 @@ RSpec.describe PlacesController, type: :controller do
       expect(response).to redirect_to place_path(cafe)
       cafe.reload
       expect(cafe.name).to eq "Cafe Exchange"    
+    end
+    
+    it "should return a 409 error if the place already exist in db" do
+      login_user
+      cafe = FactoryGirl.create(:place, user_id: @current_user)
+      patch :update, params.merge(id: cafe.id)
+      expect(response).to have_http_status(:conflict)
+      expect(response).to render_template(:edit)
     end
     
     it "should return 404 error if cafe is not found" do
