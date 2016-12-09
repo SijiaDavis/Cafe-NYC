@@ -33,8 +33,9 @@ class PlacesController < ApplicationController
   
   def update
     @place = Place.find_by_id(params[:id])
+    return render_not_found if @place.blank? 
     return render_not_allowed if @place.user != current_user
-    
+
     @place.update_attributes(place_params)
     if @place.valid?
       redirect_to place_path(@place)
@@ -44,7 +45,8 @@ class PlacesController < ApplicationController
   end
   
   def destroy
-    @place = Place.find(params[:id])
+    @place = Place.find_by_id(params[:id])
+    return render_not_found if @place.blank? 
     return render_not_allowed if @place.user != current_user
     @place.destroy
     redirect_to root_path

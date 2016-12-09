@@ -55,7 +55,7 @@ RSpec.describe PlacesController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
       
-      params = {
+      invalid_params = {
         place: {
           name: '',
           description: '',
@@ -64,7 +64,7 @@ RSpec.describe PlacesController, type: :controller do
       }
       
       place_cnt = Place.count
-      post :create, params
+      post :create, invalid_params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(place_cnt).to eq Place.count  # count should not change
     end
@@ -114,17 +114,130 @@ RSpec.describe PlacesController, type: :controller do
     end
     
     it "should return a 404 error if the place is not found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      get :edit, id: 'celia'
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+  
+  describe "places#update action" do
+    new_params = {
+      place: {
+        name: 'Cafe Exchange',
+        description: 'Free coffee every Friday from 1pm to 2pm.',
+        address: '16 State St, New York, NY'
+      }
+    }
+    
+    it "should redirect user to login view if the user is not logged in" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      cafe = FactoryGirl.create(:place, user_id: user.id)
+      sign_out user    
+      
+      patch :update, new_params.merge(id: cafe.id)
+      expect(response).to redirect_to new_user_session_path
+    end
+    
+    it "should update the cafe it is found and is created by current user" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      cafe = FactoryGirl.create(:place, user_id: user.id)
+      
+      patch :update, new_params.merge(id: cafe.id)
+      expect(response).to redirect_to place_path(cafe)
+      cafe.reload
+      expect(cafe.name).to eq "Cafe Exchange"    
+    end
+    
+    it "should return 404 error if cafe is not found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      
+      patch :update, new_params.merge(id: 'celia')
+      expect(response).to have_http_status(:not_found)
+    end
+    
+    it "should return status of unprocessable_entity if the edit form is not properly filled" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      cafe = FactoryGirl.create(:place, user_id: user.id)
+      
+      invalid_params = {
+        place: {
+          name: '',
+          description: '',
+          address: ''
+        }
+      }
+      
+      patch :update, invalid_params.merge(id: cafe.id)
+      expect(response).to have_http_status(:unprocessable_entity)
+      cafe.reload
+      expect(cafe.name).to eq "Cafe Lingo"    
+    end
+    
+    it "should return a 403 error if the place is created by another user" do
       user1 = FactoryGirl.create(:user)
       sign_in user1
-      get :edit, id: 'celia1'
+      cafe = FactoryGirl.create(:place, user_id: user1.id)
+      
+      user2 = FactoryGirl.create(:user)
+      sign_in user2
+      
+      patch :update, new_params.merge(id: cafe.id)
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+  
+  describe "places#destroy action" do
+    it "should redirect user to login view if the user is not logged in" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      cafe = FactoryGirl.create(:place, user_id: user.id)
+      sign_out user    
+      
+      delete :destroy, id: cafe.id
+      expect(response).to redirect_to new_user_session_path
+    end
+    
+    it "should return 404 error if cafe is not found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      
+      delete :destroy, id: 'celia'
       expect(response).to have_http_status(:not_found)
+    end
+    
+    it "should return a 403 error if the place is created by another user" do
+      user1 = FactoryGirl.create(:user)
+      sign_in user1
+      cafe = FactoryGirl.create(:place, user_id: user1.id)
+      
+      user2 = FactoryGirl.create(:user)
+      sign_in user2
+      
+      delete :destroy, id: cafe.id
+      expect(response).to have_http_status(:forbidden)
+    end
+    
+    it "should allow user to delete cafe they created" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      cafe = FactoryGirl.create(:place, user_id: user.id)
+      
+      delete :destroy, id: cafe.id
+      expect(response).to redirect_to root_path
+      
+      cafe = Place.find_by_id(cafe.id)
+      expect(cafe).to eq nil
     end
   end
      
   describe "places#check_unique action" do
     login_user
     it "should return a 200 status code when current user has never created this place before" do
-      
       params = {
         place: {
           name: 'Cafe Lingo',
