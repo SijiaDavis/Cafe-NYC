@@ -11,6 +11,7 @@ class PlacesController < ApplicationController
   
   def create 
     if Place.where(place_params).present?
+      @place = Place.new
       return render :new, status: :conflict
     end
     @place = current_user.places.create(place_params)
