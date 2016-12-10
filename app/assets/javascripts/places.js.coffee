@@ -8,6 +8,7 @@ jQuery ($) ->
     $("input#place_address").keydown((evt) ->    
       # if tab key is pressed
       if evt.which == 9
+        
         # get form inputs
         placeName = $("#new_place #place_name").val()
         placeDesc = $("#new_place #place_description").val()
@@ -26,9 +27,13 @@ jQuery ($) ->
           datatype: "json"
           contenType: "application/json; charset=utf-8"
           data: inputs
-          type: "POST"         
+          type: "POST"  
+          success: (data) ->
+            # clear any exisiting flash msg
+            $(".alert-danger").remove()       
           error: (data) -> 
-            $(".container").prepend('<div class="alert alert-danger">You already wrote about this place.</div>') if data.status == 409
+            # also check existence of flash msg before prepending.
+            $(".container").prepend('<div class="alert alert-danger">You already wrote about this place.</div>') if data.status == 409 && (!$(".alert-danger").length)
     )
      
      
